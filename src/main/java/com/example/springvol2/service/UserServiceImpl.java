@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,26 +23,28 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public List<User> getUsers() {
-        return userRepository.getUsers();
+        return userRepository.findAll();
     }
 
     @Transactional
-    public User getUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Transactional
     public User createUser(User user) {
-        return userRepository.createUser(user);
+        return userRepository.save(user);
     }
 
     @Transactional
-    public User updateUser(String email, User user) {
-        return userRepository.updateUser(email, user);
+    public Optional<User> updateUser(Long id, User user) {
+        return userRepository.existsById(id) ? Optional.of(userRepository.save(user)) : Optional.empty();
     }
 
     @Transactional
-    public int deleteUser(User user) {
-        return userRepository.deleteUser(user);
+    public boolean deleteUser(Long id) {
+        boolean exists = userRepository.existsById(id);
+        if (exists) userRepository.deleteById(id);
+        return exists;
     }
 }
