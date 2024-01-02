@@ -4,15 +4,16 @@ package com.example.springvol2.service;
 import com.example.springvol2.domain.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     List<User> getUsers();
 
-    User getUserByEmail(String email);
+    Optional<User> getUserById(Long id);
 
     User createUser(User user);
 
-    User updateUser(String email, User user);
+    Optional<User> updateUser(Long id, User user);
 
-    int deleteUser(User user);
+    boolean deleteUser(Long id);
 }
