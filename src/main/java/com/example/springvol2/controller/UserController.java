@@ -68,4 +68,11 @@ public class UserController {
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> authenticate(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(
+            userService.authenticate(mapper.toEntity(userDTO))
+        );
+    }
 }

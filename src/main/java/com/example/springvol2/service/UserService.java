@@ -16,4 +16,6 @@ public interface UserService {
     Optional<User> updateUser(Long id, User user);
 
     boolean deleteUser(Long id);
+
+    String authenticate(User user);
 }
